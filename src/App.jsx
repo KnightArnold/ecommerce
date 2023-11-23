@@ -6,8 +6,10 @@ import NotFound from "./components/notFound/NotFound";
 import Category from "./components/category/Category";
 import { Footer } from "./components/footer/Footer";
 import Cart from "./components/cart/Cart";
+import Detail from "./components/detail/Detail";
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 function App() {
   return (    
@@ -17,8 +19,9 @@ function App() {
         <main>
           <Routes>
             <Route path='/' element={<Home />} />
-            <Route path='/categorias/:idCategory' element={<Category />} />
-            <Route path='/carrito' element={<Cart />} />
+            <Route path='/category/:idCategory' element={<Category />} />
+            <Route path='/detail/:idProduct' element={<Detail />} />
+            <Route path='/cart' element={<Cart />} />
             <Route path='*' element={<NotFound />} />
           </Routes>
         </main>      

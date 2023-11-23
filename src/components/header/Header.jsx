@@ -10,7 +10,7 @@ const Header = () => {
     <div>
       <Navbar expand="lg" className="bg-body-tertiary">
         <Container>
-          <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+          <Navbar.Brand href="#home">React-Shop</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto">
@@ -23,7 +23,7 @@ const Header = () => {
                 Home
               </NavLink>
               <NavLink
-                to="/categorias/televisores"
+                to="/category/televisions"
                 className={({ isActive }) =>
                   isActive ? "nav-link active" : "nav-link"
                 }
@@ -31,7 +31,7 @@ const Header = () => {
                 Televisores
               </NavLink>
               <NavLink
-                to="/categorias/heladeras"
+                to="/category/refrigerators"
                 className={({ isActive }) =>
                   isActive ? "nav-link active" : "nav-link"
                 }
@@ -39,7 +39,7 @@ const Header = () => {
                 Heladeras
               </NavLink>
               <NavLink
-                to="/categorias/cocinas"
+                to="/category/kitchens"
                 className={({ isActive }) =>
                   isActive ? "nav-link active" : "nav-link"
                 }
@@ -47,7 +47,7 @@ const Header = () => {
                 Cocinas
               </NavLink>                           
               <NavLink
-                to="/carrito"
+                to="/cart"
                 className={({ isActive }) =>
                 isActive ? "nav-link active" : "nav-link"
                 }
