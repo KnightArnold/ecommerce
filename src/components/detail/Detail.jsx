@@ -2,7 +2,9 @@ import { doc, getDoc, getFirestore } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Card from 'react-bootstrap/Card';
-import LoadSpinner from "../shared/loadSpinner";
+import LoadSpinner from "../shared/component/loadSpinner/LoadSpinner";
+import ItemCounter from "../shared/component/itemCounter/ItemCounter";
+import Row from 'react-bootstrap/Row';
 
 const Detail = () => {
   const [item, setItem] = useState({});
@@ -26,20 +28,27 @@ const Detail = () => {
   }, [idProduct]);
 
   return (
-    <div className="card-container">
+    <div>
       {
         loading ? (
           <LoadSpinner />
         ) :                
-          <Card key={item.id} style={{ width: '18rem', height: '100%' }}>
-            <Card.Img variant="top" src={item.url} alt={item.name} />
-            <Card.Body>
-              <Card.Title>{item.name}</Card.Title>
-              <Card.Text>
-                Some quick example text to build on the card title and make up the...
-              </Card.Text>              
-            </Card.Body>
-          </Card>                                
+          <>
+            <Row className="justify-content-md-center">
+              <Card key={item.id} style={{ width: '18rem', height: '100%' }}>
+                <Card.Img variant="top" src={item.url} alt={item.name} />
+                <Card.Body>
+                  <Card.Title>{item.name}</Card.Title>
+                  <Card.Text>
+                    Some quick example text to build on the card title and make up the...
+                  </Card.Text>
+                </Card.Body>
+                <Card.Footer>
+                  <ItemCounter id={item.id} />
+                </Card.Footer>
+              </Card>
+            </Row>                        
+          </>                                
       }                    
     </div>
   )

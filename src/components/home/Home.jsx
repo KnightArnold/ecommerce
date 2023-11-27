@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import Card from 'react-bootstrap/Card';
 import { Link } from "react-router-dom";
-import { getFirestore, getDocs, collection, doc, getDoc, query, where, limit } from 'firebase/firestore';
-import LoadSpinner from "../shared/loadSpinner";
+import { getFirestore, getDocs, collection} from 'firebase/firestore';
+import LoadSpinner from "../shared/component/loadSpinner/LoadSpinner";
 import "./home.css";
 
 const Home = () => {

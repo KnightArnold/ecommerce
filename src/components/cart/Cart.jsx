@@ -1,56 +1,71 @@
-import { useRef } from "react";
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
+import { useContext, useEffect, useState } from "react";
+import { CartContext } from "../../context/CartContext";
+import OrderForm from "../order/OrderForm";
+import LoadSpinner from "../shared/component/loadSpinner/LoadSpinner";
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { addDoc, collection, getFirestore } from "firebase/firestore";
-
+import CardGroup from 'react-bootstrap/CardGroup';
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
+import Stack from 'react-bootstrap/Stack';
 
 const Cart = () => {
-  const userNameRef = useRef(null);
-  const userEmailRef = useRef(null);
+  const { cart, cartItems, fetchCartItems, removeItem } = useContext(CartContext);
+  
+  console.log('cartItems: ',cartItems, 'cart: ', cart);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    
-    const db = getFirestore();
-
-    const collectionRef = collection(db, 'orders');
-
-    const order = {
-      userName: userNameRef.current.value,
-      userEmail: userEmailRef.current.value,
-      items: [],
-      totalPrice: 0
+  useEffect(() => {
+    if (cart.length > 0) {
+      fetchCartItems()
     }
-
-    addDoc(collectionRef, order)
-    .then((res) => alert(`La orden ha sido enviada con éxito, su orden es: ${res.id}`));
-  }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
-    <div>
-      <Form onSubmit={handleSubmit} >
-        <Row>
-          <Col xs={7}>
-            <Form.Group className="mb-3" controlId="userName">
-              <Form.Label>Ingrese su Nombre Completo</Form.Label>
-              <Form.Control ref={userNameRef} type="text" placeholder="Ingrese su Nombre Completo" required />        
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="userEmail">
-              <Form.Label>Ingrese su email</Form.Label>
-              <Form.Control ref={userEmailRef} type="email" placeholder="Ingrese su email" required />
-            </Form.Group> 
-          </Col>
-        </Row>
-        
-        
-                   
-        <Button variant="primary" type="submit">
-          Enviar orden
-        </Button>
-      </Form>
+    <div>  
+      {
+        cartItems.length === 0 && cart.length > 0 ? (
+          <LoadSpinner />
+        ) :
+        <>
+          <Row>
+            <Col md={8}>
+              <CardGroup className="d-block">
+                {cartItems?.map(item => (
+                  <Card key={item.id} className="mt-3 border-0 shadow" >
+                    <Row>
+                      <Col xs={2}>
+                        <Card.Img variant="top" src={item.url} alt={item.name} style={{ width: '64px', height: '64px' }} />
+                      </Col>
+                      <Col xs={10}>
+                        <Card.Body>
+                          <Card.Title>
+                            <Stack direction="horizontal" gap={2}>
+                              <div className="p-2">{item.name}</div>
+                              <div className="p-2 ms-auto">$ {item.price}</div>
+                            </Stack>                            
+                          </Card.Title>
+                          <Card.Text>
+                          <Button variant="danger" onClick={() => removeItem(item.id)} >Eliminar</Button>
+                          </Card.Text>                          
+                        </Card.Body>                        
+                      </Col>
+                    </Row>                                                
+                  </Card>
+                ))}   
+              </CardGroup>
+            </Col>
+            <Col md={{ span: 3, offset: 1 }}>{`md={{ span: 4, offset: 4 }}`}</Col>
+          </Row>
+          
+                          
+          <OrderForm /> 
+        </>        
+      }
+            
+         
+          
+      
     </div>    
   )
 }

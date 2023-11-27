@@ -8,9 +8,16 @@ import CartWidget from "../cart/CartWidget";
 const Header = () => {
   return (
     <div>
-      <Navbar expand="lg" className="bg-body-tertiary">
+      <Navbar bg="dark" data-bs-theme="dark" expand="lg" className="bg-body-tertiary">
         <Container>
-          <Navbar.Brand href="#home">React-Shop</Navbar.Brand>
+        <NavLink
+                to="/"
+                className={({ isActive }) =>
+                  isActive ? "nav-link active" : "nav-link"
+                }
+              >
+            <Navbar.Brand>Electro-Shop</Navbar.Brand>
+          </NavLink>          
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto">

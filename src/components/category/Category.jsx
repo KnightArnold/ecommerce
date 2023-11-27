@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Card from 'react-bootstrap/Card';
 import { Link } from "react-router-dom";
-import LoadSpinner from "../shared/loadSpinner";
+import LoadSpinner from "../shared/component/loadSpinner/LoadSpinner";
 
 const Category = () => {
     const [items, setItems] = useState([]);

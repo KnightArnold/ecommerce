@@ -1,5 +1,10 @@
+body {
+    background-color: #ededed;
+}
+
 main {
     min-height: 80vh;
+    background-color: #ededed;
 }
 
 .card-container {
