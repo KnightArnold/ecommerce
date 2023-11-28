@@ -7,6 +7,8 @@ import Category from "./components/category/Category";
 import { Footer } from "./components/footer/Footer";
 import Cart from "./components/cart/Cart";
 import Detail from "./components/detail/Detail";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -24,8 +26,10 @@ function App() {
             <Route path='/cart' element={<Cart />} />
             <Route path='*' element={<NotFound />} />
           </Routes>
+          <ToastContainer hideProgressBar />
         </main>      
         <Footer />
+        
       </CartProvider>      
     </BrowserRouter>    
   )

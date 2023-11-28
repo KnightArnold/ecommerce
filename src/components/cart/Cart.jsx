@@ -10,11 +10,10 @@ import Button from 'react-bootstrap/Button';
 import Stack from 'react-bootstrap/Stack';
 import ListGroup from 'react-bootstrap/ListGroup';
 import ItemCounter from "../shared/component/itemCounter/ItemCounter";
+import CurrencyFormatter from "../shared/component/currencyFormatter/CurrencyFormatter";
 
 const Cart = () => {
   const { cart, cartItems, fetchCartItems, removeItem, itemsInCart, totalPrice } = useContext(CartContext);
-  
-  console.log('cartItems: ',cartItems, 'cart: ', cart);
 
   useEffect(() => {
     if (cart.length > 0) {
@@ -31,26 +30,31 @@ const Cart = () => {
         ) :
         <>
           <Row>
-            <Col md={7}>
+            <Col md={8}>
               <CardGroup className="d-block">
                 {cartItems?.map(item => (
-                  <Card key={item.id} className="mt-3 border-0 shadow" >
+                  <Card key={item.id} className="mt-3 border-0 shadow p-2" >
                     <Row>
                       <Col xs={2}>
-                        <Card.Img variant="top" src={item.url} alt={item.name} style={{ width: '64px', height: '64px' }} />
+                        <Card.Img variant="top" src={item.url} alt={item.name} />
                       </Col>
                       <Col xs={10}>
                         <Card.Body>
                           <Card.Title>
                             <Stack direction="horizontal" gap={3}>
-                              <div className="p-2">{item.name}</div>
-                              <div className="p-2 ms-auto"><ItemCounter id={item.id} quantity={item.quantity} /></div>
-                              <div className="p-2">$ {item.price}</div>
+                              <div className="p-1">{item.name.toString().length > 35 ?  `${item.name.toString().substring(0,35)}...` : item.name.toString().substring(0,35) }</div>
+                              <div className="p-1 ms-auto"><ItemCounter id={item.id} quantity={item.quantity} /></div>
+                              <div className="p-1">{CurrencyFormatter(item.price)}</div>
                             </Stack>                            
                           </Card.Title>
-                          <Card.Text>
-                          <Button variant="danger" onClick={() => removeItem(item.id)} >Eliminar</Button>
-                          </Card.Text>                          
+                          <Card.Subtitle>
+                            <Stack direction="horizontal" gap={2}>
+                              <div className="p-2">{item.brand}</div>
+                              <div className="p-2">
+                                <Button variant="light" size="sm" onClick={() => removeItem(item.id)} >🗑 Eliminar</Button>
+                              </div>  
+                            </Stack>                            
+                          </Card.Subtitle>                                                    
                         </Card.Body>                        
                       </Col>
                     </Row>                                                
@@ -58,7 +62,7 @@ const Cart = () => {
                 ))}   
               </CardGroup>
             </Col>
-            <Col md={5}>
+            <Col md={4}>
                   <Card className="mt-3 border-0 shadow p-0">
                     <ListGroup>
                       <ListGroup.Item><strong>Orden de compra</strong></ListGroup.Item>
@@ -73,11 +77,11 @@ const Cart = () => {
                       <ListGroup.Item>
                         <Stack direction="horizontal" gap={2}>
                           <div className="p-2">Productos ({itemsInCart})</div>
-                          <div className="p-2 ms-auto">$ {totalPrice}</div>
+                          <div className="p-2 ms-auto">{CurrencyFormatter(totalPrice)}</div>
                         </Stack>
                         <Stack direction="horizontal" gap={2}>
                           <div className="p-2"><strong>Total</strong></div>
-                          <div className="p-2 ms-auto"><strong>$ {totalPrice}</strong></div>
+                          <div className="p-2 ms-auto"><strong>{CurrencyFormatter(totalPrice)}</strong></div>
                         </Stack>
                       </ListGroup.Item>
                     </ListGroup>

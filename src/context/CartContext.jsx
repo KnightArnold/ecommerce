@@ -1,7 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import PropTypes from 'prop-types';
 import { doc, getDoc, getFirestore } from "firebase/firestore";
-
+import { toast } from "react-toastify";
 
 export const CartContext = createContext();
 
@@ -42,20 +42,16 @@ export function CartProvider({ children }) {
         const itemRef = doc(db, "items", item.id);
 
         const res = await getDoc(itemRef);
-        if (res.exists()) {
-          //const getQuantity = cart.find(item => item.id === res.id);
-
+        if (res.exists()) {    
           return {id: res.id, quantity: item.quantity, ...res.data()}
-        }
-
-        //throw new error        
+        }      
       })
 
       const itemsData = await Promise.all(promises);
       setCartItems(itemsData);
     }
     catch (error) {
-      console.error(error);
+      toast.error(`Fallo al cargar el carrito de compras. ${error.message}`, { autoClose: false });
     }
   }
 

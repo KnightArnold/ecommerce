@@ -3,8 +3,8 @@ import Card from 'react-bootstrap/Card';
 import { Link } from "react-router-dom";
 import { getFirestore, getDocs, collection} from 'firebase/firestore';
 import LoadSpinner from "../shared/component/loadSpinner/LoadSpinner";
-import "./home.css";
 import CurrencyFormatter from '../shared/component/currencyFormatter/CurrencyFormatter';
+import { toast } from "react-toastify";
 
 const Home = () => {
   const [items, setItems] = useState({});
@@ -17,13 +17,10 @@ const Home = () => {
     const itemsRef = collection(db, 'items');
 
     getDocs(itemsRef)
-      .then(res => {
-        if (res.size === 0) {
-          console.log('No results');
-        }
+      .then(res => {        
         setItems(res.docs.map(doc => ({id: doc.id, ...doc.data()})));
       })
-      .catch((err) => console.error(err))
+      .catch((error) => toast.error(`Fallo al obtener todos los productos. ${error.message}`, { autoClose: false }))
       .finally(() => setLoading(false));
   }, []);
 

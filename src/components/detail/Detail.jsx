@@ -1,5 +1,5 @@
 import { doc, getDoc, getFirestore } from "firebase/firestore";
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Card from 'react-bootstrap/Card';
 import LoadSpinner from "../shared/component/loadSpinner/LoadSpinner";
@@ -7,15 +7,13 @@ import ItemCounter from "../shared/component/itemCounter/ItemCounter";
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import CurrencyFormatter from "../shared/component/currencyFormatter/CurrencyFormatter";
-import { CartContext } from "../../context/CartContext";
+import { toast } from "react-toastify";
 
 const Detail = () => {
   const [item, setItem] = useState({});
   const { idProduct } = useParams();
   const [loading, setLoading] = useState(true);
-  const {itemsInCart} = useContext(CartContext);
 
-  console.log('detail itemsInCart:', itemsInCart);
 
   useEffect(() => {
     // Acceder a un documento
@@ -29,7 +27,7 @@ const Detail = () => {
         setItem({id: res.id, ...res.data()});
       }
     })
-    .catch((err) => console.error(err))
+    .catch((error) => toast.error(`Fallo al obtener el producto: ${idProduct}. ${error.message}`, { autoClose: false }))
     .finally(() => setLoading(false));
   }, [idProduct]);
 
