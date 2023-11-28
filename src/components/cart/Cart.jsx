@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { CartContext } from "../../context/CartContext";
 import OrderForm from "../order/OrderForm";
 import LoadSpinner from "../shared/component/loadSpinner/LoadSpinner";
@@ -8,9 +8,11 @@ import CardGroup from 'react-bootstrap/CardGroup';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Stack from 'react-bootstrap/Stack';
+import ListGroup from 'react-bootstrap/ListGroup';
+import ItemCounter from "../shared/component/itemCounter/ItemCounter";
 
 const Cart = () => {
-  const { cart, cartItems, fetchCartItems, removeItem } = useContext(CartContext);
+  const { cart, cartItems, fetchCartItems, removeItem, itemsInCart, totalPrice } = useContext(CartContext);
   
   console.log('cartItems: ',cartItems, 'cart: ', cart);
 
@@ -29,7 +31,7 @@ const Cart = () => {
         ) :
         <>
           <Row>
-            <Col md={8}>
+            <Col md={7}>
               <CardGroup className="d-block">
                 {cartItems?.map(item => (
                   <Card key={item.id} className="mt-3 border-0 shadow" >
@@ -40,9 +42,10 @@ const Cart = () => {
                       <Col xs={10}>
                         <Card.Body>
                           <Card.Title>
-                            <Stack direction="horizontal" gap={2}>
+                            <Stack direction="horizontal" gap={3}>
                               <div className="p-2">{item.name}</div>
-                              <div className="p-2 ms-auto">$ {item.price}</div>
+                              <div className="p-2 ms-auto"><ItemCounter id={item.id} quantity={item.quantity} /></div>
+                              <div className="p-2">$ {item.price}</div>
                             </Stack>                            
                           </Card.Title>
                           <Card.Text>
@@ -55,11 +58,35 @@ const Cart = () => {
                 ))}   
               </CardGroup>
             </Col>
-            <Col md={{ span: 3, offset: 1 }}>{`md={{ span: 4, offset: 4 }}`}</Col>
+            <Col md={5}>
+                  <Card className="mt-3 border-0 shadow p-0">
+                    <ListGroup>
+                      <ListGroup.Item><strong>Orden de compra</strong></ListGroup.Item>
+                      <ListGroup.Item>
+                        <OrderForm /> 
+                      </ListGroup.Item>
+                    </ListGroup>
+                  </Card>
+                  <Card className="mt-3 border-0 shadow p-0">
+                    <ListGroup>
+                      <ListGroup.Item><strong>Resumen de compra</strong></ListGroup.Item>
+                      <ListGroup.Item>
+                        <Stack direction="horizontal" gap={2}>
+                          <div className="p-2">Productos ({itemsInCart})</div>
+                          <div className="p-2 ms-auto">$ {totalPrice}</div>
+                        </Stack>
+                        <Stack direction="horizontal" gap={2}>
+                          <div className="p-2"><strong>Total</strong></div>
+                          <div className="p-2 ms-auto"><strong>$ {totalPrice}</strong></div>
+                        </Stack>
+                      </ListGroup.Item>
+                    </ListGroup>
+                  </Card>                  
+            </Col>
           </Row>
           
                           
-          <OrderForm /> 
+          
         </>        
       }
             

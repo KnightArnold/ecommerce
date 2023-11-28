@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import Card from 'react-bootstrap/Card';
 import { Link } from "react-router-dom";
 import LoadSpinner from "../shared/component/loadSpinner/LoadSpinner";
+import CurrencyFormatter from "../shared/component/currencyFormatter/CurrencyFormatter";
 
 const Category = () => {
     const [items, setItems] = useState([]);
@@ -36,12 +37,13 @@ const Category = () => {
             ) : 
             items.map((item) => (
               <Link className="nav-link" key={item.id} to={`/detail/${item.id}`}>
-                <Card key={item.id} style={{ width: '18rem', height: '100%' }}>
+                <Card key={item.id} style={{ width: '18rem', height: '100%' }} className="p-1">
                   <Card.Img variant="top" src={item.url} alt={item.name} />
                   <Card.Body>
-                    <Card.Title>{item.name}</Card.Title>
-                    <Card.Text>
-                      Some quick example text to build on the card title and make up the...
+                    <Card.Title>{CurrencyFormatter(item.price)}</Card.Title>
+                    <Card.Subtitle className="mb-2 text-muted">{item.brand}</Card.Subtitle>
+                    <Card.Text className="text-limit">
+                      {item.description}
                     </Card.Text>              
                   </Card.Body>
                 </Card>

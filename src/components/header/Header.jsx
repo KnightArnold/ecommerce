@@ -4,6 +4,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { NavLink } from 'react-router-dom';
 import CartWidget from "../cart/CartWidget";
+import logoHeader from "../../img/newlogoHeader.svg";
 
 const Header = () => {
   return (
@@ -16,7 +17,10 @@ const Header = () => {
                   isActive ? "nav-link active" : "nav-link"
                 }
               >
-            <Navbar.Brand>Electro-Shop</Navbar.Brand>
+            <Navbar.Brand>
+              <img style={{ height: '2rem' }} src={logoHeader} alt={"logoHeader"}/>
+              <div style={{ display: 'inline-block', position: 'absolute', fontWeight: 'bold', marginTop: '0.7rem' }} >-Shop</div>             
+            </Navbar.Brand>
           </NavLink>          
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">

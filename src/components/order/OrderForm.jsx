@@ -33,7 +33,7 @@ const OrderForm = () => {
   return (
     <Form onSubmit={handleSubmit} >
         <Row className="justify-content-md-center">
-            <Col xs={7}>
+            <Col>
             <Form.Group className="mb-3" controlId="userName">
                 <Form.Label>Ingrese su Nombre Completo</Form.Label>
                 <Form.Control ref={userNameRef} type="text" placeholder="Ingrese su Nombre Completo" required />        
@@ -47,7 +47,7 @@ const OrderForm = () => {
                     
         </Row>
         <Row className="justify-content-md-center">
-            <Col xs={7}>
+            <Col>
             <Button variant="primary" type="submit">
                 Enviar orden
             </Button>

@@ -73,6 +73,21 @@ export function CartProvider({ children }) {
     setCartItems(filteredCartItems);
   }
 
+  const modifyItem = (idProduct, quantity) => {
+    if (isInCart(idProduct)) {
+      setCart(
+        cart.map((item) => {
+          return item.id === idProduct ? { id: idProduct, quantity: quantity } : item;
+        })
+      );
+      setCartItems(
+        cartItems.map((item) => {
+          return item.id === idProduct ? { id: idProduct, category: item.category, name: item.name, price: item.price, quantity: quantity, url: item.url} : item;
+        })
+      );
+    }    
+  }
+
   return (
     <CartContext.Provider 
     value={{
@@ -85,7 +100,8 @@ export function CartProvider({ children }) {
       setCartItems, 
       totalPrice, 
       emptyCart,
-      removeItem
+      removeItem,
+      modifyItem
     }}
     
     >
