@@ -1,15 +1,15 @@
 import { useContext, useEffect } from "react";
 import { CartContext } from "../../context/CartContext";
 import OrderForm from "../order/OrderForm";
-import LoadSpinner from "../shared/component/loadSpinner/LoadSpinner";
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import CardGroup from 'react-bootstrap/CardGroup';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Stack from 'react-bootstrap/Stack';
 import ListGroup from 'react-bootstrap/ListGroup';
+import CardGroup from 'react-bootstrap/CardGroup';
 import ItemCounter from "../shared/component/itemCounter/ItemCounter";
+import LoadSpinner from "../shared/component/loadSpinner/LoadSpinner";
 import CurrencyFormatter from "../shared/component/currencyFormatter/CurrencyFormatter";
 
 const Cart = () => {
@@ -87,16 +87,9 @@ const Cart = () => {
                     </ListGroup>
                   </Card>                  
             </Col>
-          </Row>
-          
-                          
-          
+          </Row>     
         </>        
       }
-            
-         
-          
-      
     </div>    
   )
 }

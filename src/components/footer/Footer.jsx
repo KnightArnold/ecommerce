@@ -1,7 +1,7 @@
-import "./footer.css";
+import Stack from 'react-bootstrap/Stack';
 import logoFooter from "../../img/newFooter.png";
 import logoLinkedin from "../../img/linkedin.svg";
-import Stack from 'react-bootstrap/Stack';
+import "./footer.css";
 
 export const Footer = () => {
   return (
